@@ -14,7 +14,11 @@ public class Dialogue : MonoBehaviour
 
     private int index;
 
+    //Getting reference from the ChangeScenewithButtonScript
+    ChangeScenewithButton sceneChange;
+
     PressableButton button;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,16 +28,8 @@ public class Dialogue : MonoBehaviour
 
         //button component
         button = GameObject.FindGameObjectWithTag("Button").GetComponent<PressableButton>();
-        
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    
-      
+        sceneChange = FindObjectOfType<ChangeScenewithButton>();
     }
 
     void Click()
@@ -44,10 +40,12 @@ public class Dialogue : MonoBehaviour
             }
             else
             {
-                StopAllCoroutines();
-                textComponent.text = lines[index];
-            }
-        
+            StopAllCoroutines();
+            //Get current line and instantlly fill out 
+            textComponent.text = lines[index];
+
+        }
+
     }
     void StartDialogue()
     {
@@ -75,7 +73,9 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
-            gameObject.SetActive(false);
+            //Change to landing scene
+            sceneChange.LoadScene("LandingScene");
+            
         }
     }
 }
